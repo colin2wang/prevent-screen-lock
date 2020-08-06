@@ -46,7 +46,7 @@ public class PSLMainUI {
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(800, 600);
-		shell.setText("Wanmeng Daxue Downloader");
+		shell.setText("Prevent Screen Lock");
 		shell.setLayout(new GridLayout(1, false));
 		
 		TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
