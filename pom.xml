@@ -1,6 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.colin</groupId>
 	<artifactId>prevent-screen-lock</artifactId>
@@ -16,17 +16,31 @@
 
 	<dependencies>
 		<!-- 导入swt -->
+<!--		<dependency>-->
+<!--			<groupId>org.eclipse.swt</groupId>-->
+<!--			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>-->
+<!--			<version>4.6.1</version>-->
+<!--		</dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.eclipse.platform</groupId>-->
+<!--            <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>-->
+<!--            <version>3.115.0</version>-->
+<!--        </dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.swt/org.eclipse.swt.win32.win32.x86_64 -->
 		<dependency>
 			<groupId>org.eclipse.swt</groupId>
 			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-			<version>4.6.1</version>
+			<version>4.3</version>
 		</dependency>
-		<!-- 导入jface -->
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jface</artifactId>
-			<version>3.9.1</version>
-		</dependency>
+
+<!--		&lt;!&ndash; 导入jface &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.eclipse</groupId>-->
+<!--			<artifactId>jface</artifactId>-->
+<!--			<version>3.9.1</version>-->
+<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
 		<dependency>
@@ -70,17 +84,16 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<!-- eclipse swt的官方仓库，但是不包含Jface -->
-		<repository>
-			<id>maven-eclipse-repo</id>
-			<url>http://maven-eclipse.github.io/maven</url>
-		</repository>
-		<!-- 包含jface的第三方仓库 -->
-		<repository>
-			<id>Jabylon-Plugin---</id>
-			<url>http://www.jabylon.org/maven/</url>
-		</repository>
-	</repositories>
+<!--	<repositories>-->
+<!--		&lt;!&ndash; eclipse swt的官方仓库，但是不包含Jface &ndash;&gt;-->
+<!--&lt;!&ndash;		<repository>&ndash;&gt;-->
+<!--&lt;!&ndash;			<id>maven-eclipse-repo</id>&ndash;&gt;-->
+<!--&lt;!&ndash;			<url>https://maven-eclipse.github.io/maven</url>&ndash;&gt;-->
+<!--&lt;!&ndash;		</repository>&ndash;&gt;-->
+<!--		&lt;!&ndash; 包含jface的第三方仓库 &ndash;&gt;-->
+<!--		<repository>-->
+<!--			<id>Jabylon-Plugin-&#45;&#45;</id>-->
+<!--			<url>http://www.jabylon.org/maven/</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 </project>
