@@ -8,18 +8,31 @@ import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * A dialog window that displays a web browser.
+ * Used to show web content within the application.
+ */
 public class BrowserDialog extends Dialog {
 
 	protected Object result;
 	protected Shell shell;
 
+	/**
+	 * Creates a new browser dialog.
+	 *
+	 * @param parent the parent shell
+	 * @param style  the style flags for the dialog
+	 */
 	public BrowserDialog(Shell parent, int style) {
 		super(parent, style | SWT.CLOSE | SWT.RESIZE);
 		setText("Browser");
 	}
 
 	/**
-	 * Open the dialog.
+	 * Opens the dialog and displays the browser window.
+	 * The dialog remains open until it is closed by the user.
+	 *
+	 * @return the result of the dialog operation
 	 */
 	public Object open() {
 		createContents();
@@ -35,7 +48,8 @@ public class BrowserDialog extends Dialog {
 	}
 
 	/**
-	 * Create contents of the dialog.
+	 * Creates the contents of the dialog including the browser component.
+	 * Sets up the shell with appropriate size and adds a browser widget loading Baidu homepage.
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());

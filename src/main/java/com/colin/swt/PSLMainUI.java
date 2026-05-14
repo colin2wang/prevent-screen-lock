@@ -9,24 +9,39 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Main UI class for Prevent Screen Lock application.
+ * This is the entry point of the application that creates and displays the main window.
+ */
 public class PSLMainUI {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PSLMainUI.class);
 
 	protected Shell shell;
 
+	/**
+	 * Application entry point.
+	 * Creates and opens the main window.
+	 *
+	 * @param args command line arguments (not used)
+	 */
 	public static void main(String[] args) {
 		try {
 			PSLMainUI window = new PSLMainUI();
 			window.open();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error occurred while starting application", e);
 		}
 		
 		System.exit(0);
 	}
 
 	/**
-	 * Open the window.
+	 * Opens the main window and starts the event loop.
+	 * The window will remain open until it is disposed by the user.
 	 */
 	public void open() {
 		Display display = Display.getDefault();
@@ -41,7 +56,8 @@ public class PSLMainUI {
 	}
 
 	/**
-	 * Create contents of the window.
+	 * Creates the contents of the main window including tabs and controls.
+	 * Sets up the shell with title, size, and layout, then adds tab folder with key press controls and log window.
 	 */
 	protected void createContents() {
 		shell = new Shell();

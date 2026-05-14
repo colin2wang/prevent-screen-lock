@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * Composite component that provides key press simulation to prevent screen lock.
+ * Allows users to configure the interval and start/stop the automatic key pressing feature.
+ */
 public class KeyPressComposite extends Composite {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(KeyPressComposite.class);
@@ -22,9 +26,11 @@ public class KeyPressComposite extends Composite {
 	private Button btnStop;
 
 	/**
-	 * Create the composite.
+	 * Creates the key press composite with controls for configuring and managing automatic key pressing.
+	 *
+	 * @param parent the parent composite
+	 * @param style  the style flags for the composite
 	 */
-
 	public KeyPressComposite(Composite parent, int style) {
 		super(parent, style);
 		setLayout(new GridLayout(3, false));
@@ -50,7 +56,7 @@ public class KeyPressComposite extends Composite {
 						btnStart.addSelectionListener(new SelectionAdapter() {
 							@Override
 							public void widgetSelected(SelectionEvent e) {
-
+								// Enable stop button and get sleep interval from user input
 								btnStop.setEnabled(true);
 								int sleep = 60;
 								try {
@@ -61,21 +67,38 @@ public class KeyPressComposite extends Composite {
 
 								isContinue = true;
 								int finalSleep = sleep;
+								// Start a new thread to handle periodic key pressing
 								new Thread(() -> {
 									LOGGER.info("Will continuing to press key in every {} second(s).", finalSleep);
 									LOGGER.info("Key press Thread: {} start.", Thread.currentThread().getName());
 									while (isContinue) {
 										try {
-											UserActionUtil.pressSingleKeyByNumber(KeyEvent.VK_NUM_LOCK);
+											// Check Scroll Lock status
+											boolean isScrollLockOn = UserActionUtil.isKeyLocked(KeyEvent.VK_SCROLL_LOCK);
+																							
+											if (isScrollLockOn) {
+												// If Scroll Lock is ON, wait 2 seconds then press to turn it OFF
+												LOGGER.info("Scroll Lock is ON, waiting 2 seconds then pressing to turn OFF");
+												Thread.sleep(2000);
+												if (!isContinue) {
+													break;
+												}
+											}
+																							
+											// Press Scroll Lock key to ensure it stays OFF (prevents screen lock)
+											UserActionUtil.pressSingleKeyByNumber(KeyEvent.VK_SCROLL_LOCK);
+											LOGGER.info("Scroll Lock pressed, ensuring it stays OFF");
+																							
+											// Wait for the configured interval before next iteration
 											for (int i = 0; i < finalSleep * 2; i++) {
 												Thread.sleep(500);
 												if (!isContinue) {
 													break;
 												}
 											}
-
+									
 										} catch (InterruptedException ex) {
-											LOGGER.error(ex.getMessage(), e);
+											LOGGER.error("Error in key press thread", ex);
 										}
 									}
 									LOGGER.info("Key press Thread: {} stop.", Thread.currentThread().getName());
@@ -96,6 +119,7 @@ public class KeyPressComposite extends Composite {
 				btnStop.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
+						// Signal the key press thread to stop
 						LOGGER.info("Notify running key press thread to stop.");
 						isContinue = false;
 					}
